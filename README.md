@@ -18,11 +18,11 @@ Al iniciar, la aplicación carga automáticamente [`seed/seed-data.json`](./seed
 
 ## Módulos
 
-- `DoctorsModule`: médicos y especialidades.
-- `PatientsModule`: pacientes con DNI único.
-- `AppointmentsModule`: disponibilidad, solapamiento y estados de citas.
-- `PaymentsModule`: pagos agrupados y aprobación/rechazo administrativo.
-- `MedicalRecordsModule`: fichas médicas únicamente para citas pagadas.
+- `DoctoresModule`: médicos y especialidades.
+- `PacientesModule`: pacientes con DNI único.
+- `CitasModule`: disponibilidad, solapamiento y estados de citas.
+- `PagosModule`: pagos agrupados y aprobación/rechazo administrativo.
+- `RegistrosMedicosModule`: fichas médicas únicamente para citas pagadas.
 
 ## Endpoints
 
@@ -32,14 +32,14 @@ Todos los endpoints reciben y devuelven JSON. La aplicación usa `ValidationPipe
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/doctors` | Lista los médicos seed |
-| POST | `/doctors` | Crea un médico: `{ "name": "Dr. López", "specialty": "Neurología", "consultationDurationMinutes": 30 }` |
-| GET | `/patients` | Lista los pacientes seed |
-| POST | `/patients` | Crea un paciente: `{ "name": "Paciente C", "dni": "V-33333333", "phone": "0412-0000000" }` |
+| GET | `/doctores` | Lista los médicos seed |
+| POST | `/doctores` | Crea un médico: `{ "name": "Dr. López", "specialty": "Neurología", "consultationDurationMinutes": 30 }` |
+| GET | `/pacientes` | Lista los pacientes seed |
+| POST | `/pacientes` | Crea un paciente: `{ "name": "Paciente C", "dni": "V-33333333", "phone": "0412-0000000" }` |
 
 ### Citas
 
-`POST /appointments`
+`POST /citas`
 
 ```json
 {
@@ -54,13 +54,13 @@ Una cita nueva queda en `RESERVADA`. Se devuelve `409 Conflict` si el médico ti
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/appointments` | Lista citas |
-| GET | `/appointments/:id` | Consulta una cita |
-| POST | `/appointments` | Agenda una cita |
+| GET | `/citas` | Lista citas |
+| GET | `/citas/:id` | Consulta una cita |
+| POST | `/citas` | Agenda una cita |
 
 ### Pagos
 
-`POST /payments`
+`POST /pagos`
 
 ```json
 {
@@ -75,16 +75,16 @@ El monto debe ser la suma exacta de las citas y todas deben estar `RESERVADA`. E
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/payments` | Lista pagos |
-| POST | `/payments` | Registra pago consolidado |
-| PATCH | `/payments/:id/reject` | Rechaza con `{ "reason": "Monto incompleto" }`; citas vuelven a `RESERVADA` |
-| PATCH | `/payments/:id/approve` | Aprueba; citas pasan a `PAGADA` |
+| GET | `/pagos` | Lista pagos |
+| POST | `/pagos` | Registra pago consolidado |
+| PATCH | `/pagos/:id/reject` | Rechaza con `{ "reason": "Monto incompleto" }`; citas vuelven a `RESERVADA` |
+| PATCH | `/pagos/:id/approve` | Aprueba; citas pasan a `PAGADA` |
 
 Las transiciones de pago y citas se ejecutan dentro de una transacción MongoDB.
 
 ### Ficha médica
 
-`POST /medical-records`
+`POST /registros-medicos`
 
 ```json
 {
@@ -100,12 +100,12 @@ Devuelve `400 Bad Request` si la cita no está `PAGADA`. En caso exitoso crea la
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/medical-records` | Lista fichas |
-| POST | `/medical-records` | Registra diagnóstico y tratamiento |
+| GET | `/registros-medicos` | Lista fichas |
+| POST | `/registros-medicos` | Registra diagnóstico y tratamiento |
 
 ## Demostración en Postman
 
-Importa [`postman/citas-medicas.postman_collection.json`](./postman/citas-medicas.postman_collection.json). Copia los IDs obtenidos de `GET /doctors` y `GET /patients` en las variables `doctorPerezId`, `doctorGomezId`, `patientAId` y `patientBId`. Después de cada creación, guarda los IDs de las citas y del pago en las variables indicadas. Ejecuta las carpetas en orden para reproducir los tres escenarios solicitados.
+Importa [`postman/citas-medicas.postman_collection.json`](./postman/citas-medicas.postman_collection.json). Copia los IDs obtenidos de `GET /doctores` y `GET /pacientes` en las variables `doctorPerezId`, `doctorGomezId`, `patientAId` y `patientBId`. Después de cada creación, guarda los IDs de las citas y del pago en las variables indicadas. Ejecuta las carpetas en orden para reproducir los tres escenarios solicitados.
 
 ## Validación
 

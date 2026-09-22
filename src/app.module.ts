@@ -5,7 +5,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { DoctoresModule } from './doctores/doctors.module.js';
 import { PacientesModule } from './pacientes/patients.module.js';
-import { AppointmentsModule } from './appointments/appointments.module.js';
+import { CitasModule } from './appointments/appointments.module.js';
 import { PagosModule } from './pagos/payments.module.js';
 import { RegistrosMedicosModule } from './registros-medicos/medical-records.module.js';
 import { SeedService } from './seed/seed.service.js';
@@ -18,7 +18,7 @@ import { Patient, PatientSchema } from './pacientes/schemas/patient.schema.js';
     MongooseModule.forFeature([{ name: Doctor.name, schema: DoctorSchema }, { name: Patient.name, schema: PatientSchema }]),
     DoctoresModule,
     PacientesModule,
-    AppointmentsModule,
+    CitasModule,
     PagosModule,
     RegistrosMedicosModule,
   ],

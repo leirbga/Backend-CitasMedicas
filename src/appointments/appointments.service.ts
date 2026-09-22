@@ -7,7 +7,7 @@ import { CreateAppointmentDto } from './dto/create-appointment.dto.js';
 import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/appointment.schema.js';
 
 @Injectable()
-export class AppointmentsService {
+export class CitasService {
   constructor(
     @InjectModel(Appointment.name) private readonly model: Model<AppointmentDocument>,
     private readonly doctors: DoctoresService,
