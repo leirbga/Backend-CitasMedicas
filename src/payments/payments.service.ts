@@ -1,13 +1,13 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { ClientSession, Connection, Model, Types } from 'mongoose';
-import { Appointment, AppointmentDocument, AppointmentStatus } from '../cita/schemas/cita.schema.js';
+import { Appointment, AppointmentDocument, AppointmentStatus } from '../appointments/schemas/appointment.schema.js';
 import { CreatePaymentDto } from './dto/create-payment.dto.js';
 import { RejectPaymentDto } from './dto/reject-payment.dto.js';
 import { Payment, PaymentDocument, PaymentStatus } from './schemas/payment.schema.js';
 
 @Injectable()
-export class PagosService {
+export class PaymentsService {
   constructor(
     @InjectModel(Payment.name) private readonly payments: Model<PaymentDocument>,
     @InjectModel(Appointment.name) private readonly appointments: Model<AppointmentDocument>,

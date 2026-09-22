@@ -19,11 +19,11 @@
       "item": [
         {
           "name": "Listar médicos",
-          "request": { "method": "GET", "url": "{{baseUrl}}/doctores" }
+          "request": { "method": "GET", "url": "{{baseUrl}}/doctors" }
         },
         {
           "name": "Listar pacientes",
-          "request": { "method": "GET", "url": "{{baseUrl}}/pacientes" }
+          "request": { "method": "GET", "url": "{{baseUrl}}/patients" }
         }
       ]
     },
@@ -36,7 +36,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"patientId\":\"{{patientAId}}\",\"doctorId\":\"{{doctorPerezId}}\",\"startAt\":\"2026-09-23T10:00:00.000Z\",\"amount\":40}" },
-            "url": "{{baseUrl}}/citas"
+            "url": "{{baseUrl}}/appointments"
           }
         },
         {
@@ -45,7 +45,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"patientId\":\"{{patientBId}}\",\"doctorId\":\"{{doctorPerezId}}\",\"startAt\":\"2026-09-23T10:00:00.000Z\",\"amount\":40}" },
-            "url": "{{baseUrl}}/citas"
+            "url": "{{baseUrl}}/appointments"
           }
         }
       ]
@@ -59,7 +59,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"patientId\":\"{{patientAId}}\",\"doctorId\":\"{{doctorPerezId}}\",\"startAt\":\"2026-09-23T11:00:00.000Z\",\"amount\":40}" },
-            "url": "{{baseUrl}}/citas"
+            "url": "{{baseUrl}}/appointments"
           }
         },
         {
@@ -68,7 +68,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"patientId\":\"{{patientBId}}\",\"doctorId\":\"{{doctorGomezId}}\",\"startAt\":\"2026-09-23T14:00:00.000Z\",\"amount\":50}" },
-            "url": "{{baseUrl}}/citas"
+            "url": "{{baseUrl}}/appointments"
           }
         },
         {
@@ -77,11 +77,11 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"appointmentIds\":[\"{{appointmentAId}}\",\"{{appointmentBId}}\"],\"paymentMethod\":\"TRANSFERENCIA\",\"bankReference\":\"REF-MED-2026\",\"amount\":90}" },
-            "url": "{{baseUrl}}/pagos"
+            "url": "{{baseUrl}}/payments"
           }
         },
-        { "name": "Rechazar pago", "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"reason\":\"Monto incompleto\"}" }, "url": "{{baseUrl}}/pagos/{{paymentId}}/reject" } },
-        { "name": "Aprobar pago corregido", "request": { "method": "PATCH", "url": "{{baseUrl}}/pagos/{{paymentId}}/approve" } }
+        { "name": "Rechazar pago", "request": { "method": "PATCH", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\"reason\":\"Monto incompleto\"}" }, "url": "{{baseUrl}}/payments/{{paymentId}}/reject" } },
+        { "name": "Aprobar pago corregido", "request": { "method": "PATCH", "url": "{{baseUrl}}/payments/{{paymentId}}/approve" } }
       ]
     },
     {
@@ -93,7 +93,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"appointmentId\":\"{{appointmentAId}}\",\"reason\":\"Control\",\"diagnosis\":\"N/A\",\"treatment\":\"N/A\",\"attendedAt\":\"2026-09-23T11:30:00.000Z\"}" },
-            "url": "{{baseUrl}}/registros-medicos"
+            "url": "{{baseUrl}}/medical-records"
           }
         },
         {
@@ -102,7 +102,7 @@
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": { "mode": "raw", "raw": "{\"appointmentId\":\"{{appointmentAId}}\",\"reason\":\"Dolor torácico\",\"diagnosis\":\"Evaluación cardiológica normal\",\"treatment\":\"Control en 30 días\",\"attendedAt\":\"2026-09-23T11:30:00.000Z\"}" },
-            "url": "{{baseUrl}}/registros-medicos"
+            "url": "{{baseUrl}}/medical-records"
           }
         }
       ]

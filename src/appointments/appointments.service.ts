@@ -1,20 +1,20 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { DoctoresService } from '../doctores/doctors.service.js';
-import { PacientesService } from '../pacientes/patients.service.js';
-import { CrearCitaDto } from './dto/crear-cita.dto.js';
-import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/cita.schema.js';
+import { DoctorsService } from '../doctors/doctors.service.js';
+import { PatientsService } from '../patients/patients.service.js';
+import { CreateAppointmentDto } from './dto/create-appointment.dto.js';
+import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/appointment.schema.js';
 
 @Injectable()
-export class CitasService {
+export class AppointmentsService {
   constructor(
     @InjectModel(Appointment.name) private readonly model: Model<AppointmentDocument>,
-    private readonly doctors: DoctoresService,
-    private readonly patients: PacientesService,
+    private readonly doctors: DoctorsService,
+    private readonly patients: PatientsService,
   ) {}
 
-  async create(dto: CrearCitaDto) {
+  async create(dto: CreateAppointmentDto) {
     const [doctor, patient] = await Promise.all([this.doctors.findById(dto.doctorId), this.patients.findById(dto.patientId)]);
     if (!doctor) throw new NotFoundException('Médico no encontrado');
     if (!patient) throw new NotFoundException('Paciente no encontrado');

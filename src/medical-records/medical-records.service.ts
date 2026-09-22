@@ -1,12 +1,12 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Appointment, AppointmentDocument, AppointmentStatus } from '../cita/schemas/cita.schema.js';
+import { Appointment, AppointmentDocument, AppointmentStatus } from '../appointments/schemas/appointment.schema.js';
 import { CreateMedicalRecordDto } from './dto/create-medical-record.dto.js';
 import { MedicalRecord, MedicalRecordDocument } from './schemas/medical-record.schema.js';
 
 @Injectable()
-export class RegistrosMedicosService {
+export class MedicalRecordsService {
   constructor(
     @InjectModel(MedicalRecord.name) private readonly records: Model<MedicalRecordDocument>,
     @InjectModel(Appointment.name) private readonly appointments: Model<AppointmentDocument>,

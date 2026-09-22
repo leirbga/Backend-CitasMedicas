@@ -7,7 +7,7 @@ Backend desarrollado con NestJS, TypeScript y MongoDB para la prueba técnica.
 - Node.js 20+
 - MongoDB local o MongoDB Atlas
 
-Configura `MONGO_URI` en `.env` (por ejemplo, `mongodb://127.0.0.1:27017/citas-medicas`).
+Configura `MONGO_URI` en `.env` (por ejemplo, `mongodb://127.0.0.1:27017/appointments-medicas`).
 
 ```bash
 npm install
@@ -18,11 +18,11 @@ Al iniciar, la aplicación carga automáticamente [`seed/seed-data.json`](./seed
 
 ## Módulos
 
-- `DoctoresModule`: médicos y especialidades.
-- `PacientesModule`: pacientes con DNI único.
-- `CitasModule`: disponibilidad, solapamiento y estados de citas.
-- `PagosModule`: pagos agrupados y aprobación/rechazo administrativo.
-- `RegistrosMedicosModule`: fichas médicas únicamente para citas pagadas.
+- `DoctorsModule`: médicos y especialidades.
+- `PatientsModule`: pacientes con DNI único.
+- `AppointmentsModule`: disponibilidad, solapamiento y estados de citas.
+- `PaymentsModule`: pagos agrupados y aprobación/rechazo administrativo.
+- `MedicalRecordsModule`: fichas médicas únicamente para citas pagadas.
 
 ## Endpoints
 
@@ -32,14 +32,14 @@ Todos los endpoints reciben y devuelven JSON. La aplicación usa `ValidationPipe
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/doctores` | Lista los médicos seed |
-| POST | `/doctores` | Crea un médico: `{ "name": "Dr. López", "specialty": "Neurología", "consultationDurationMinutes": 30 }` |
-| GET | `/pacientes` | Lista los pacientes seed |
-| POST | `/pacientes` | Crea un paciente: `{ "name": "Paciente C", "dni": "V-33333333", "phone": "0412-0000000" }` |
+| GET | `/doctors` | Lista los médicos seed |
+| POST | `/doctors` | Crea un médico: `{ "name": "Dr. López", "specialty": "Neurología", "consultationDurationMinutes": 30 }` |
+| GET | `/patients` | Lista los pacientes seed |
+| POST | `/patients` | Crea un paciente: `{ "name": "Paciente C", "dni": "V-33333333", "phone": "0412-0000000" }` |
 
 ### Citas
 
-`POST /citas`
+`POST /appointments`
 
 ```json
 {
@@ -54,13 +54,13 @@ Una cita nueva queda en `RESERVADA`. Se devuelve `409 Conflict` si el médico ti
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/citas` | Lista citas |
-| GET | `/citas/:id` | Consulta una cita |
-| POST | `/citas` | Agenda una cita |
+| GET | `/appointments` | Lista citas |
+| GET | `/appointments/:id` | Consulta una cita |
+| POST | `/appointments` | Agenda una cita |
 
 ### Pagos
 
-`POST /pagos`
+`POST /payments`
 
 ```json
 {
@@ -75,16 +75,16 @@ El monto debe ser la suma exacta de las citas y todas deben estar `RESERVADA`. E
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/pagos` | Lista pagos |
-| POST | `/pagos` | Registra pago consolidado |
-| PATCH | `/pagos/:id/reject` | Rechaza con `{ "reason": "Monto incompleto" }`; citas vuelven a `RESERVADA` |
-| PATCH | `/pagos/:id/approve` | Aprueba; citas pasan a `PAGADA` |
+| GET | `/payments` | Lista pagos |
+| POST | `/payments` | Registra pago consolidado |
+| PATCH | `/payments/:id/reject` | Rechaza con `{ "reason": "Monto incompleto" }`; citas vuelven a `RESERVADA` |
+| PATCH | `/payments/:id/approve` | Aprueba; citas pasan a `PAGADA` |
 
 Las transiciones de pago y citas se ejecutan dentro de una transacción MongoDB.
 
 ### Ficha médica
 
-`POST /registros-medicos`
+`POST /medical-records`
 
 ```json
 {
@@ -100,12 +100,12 @@ Devuelve `400 Bad Request` si la cita no está `PAGADA`. En caso exitoso crea la
 
 | Método | Ruta | Descripción |
 |---|---|---|
-| GET | `/registros-medicos` | Lista fichas |
-| POST | `/registros-medicos` | Registra diagnóstico y tratamiento |
+| GET | `/medical-records` | Lista fichas |
+| POST | `/medical-records` | Registra diagnóstico y tratamiento |
 
 ## Demostración en Postman
 
-Importa [`postman/citas-medicas.postman_collection.json`](./postman/citas-medicas.postman_collection.json). Copia los IDs obtenidos de `GET /doctores` y `GET /pacientes` en las variables `doctorPerezId`, `doctorGomezId`, `patientAId` y `patientBId`. Después de cada creación, guarda los IDs de las citas y del pago en las variables indicadas. Ejecuta las carpetas en orden para reproducir los tres escenarios solicitados.
+Importa [`postman/appointments-medicas.postman_collection.json`](./postman/appointments-medicas.postman_collection.json). Copia los IDs obtenidos de `GET /doctors` y `GET /patients` en las variables `doctorPerezId`, `doctorGomezId`, `patientAId` y `patientBId`. Después de cada creación, guarda los IDs de las citas y del pago en las variables indicadas. Ejecuta las carpetas en orden para reproducir los tres escenarios solicitados.
 
 ## Validación
 
