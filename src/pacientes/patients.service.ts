@@ -5,7 +5,7 @@ import { CreatePatientDto } from './dto/create-patient.dto.js';
 import { Patient, PatientDocument } from './schemas/patient.schema.js';
 
 @Injectable()
-export class PatientsService {
+export class PacientesService {
   constructor(@InjectModel(Patient.name) private readonly model: Model<PatientDocument>) {}
   async create(dto: CreatePatientDto) {
     try { return await this.model.create(dto); }

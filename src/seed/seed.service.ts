@@ -2,8 +2,8 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import seedData from '../../seed/seed-data.json' with { type: 'json' };
-import { Doctor, DoctorDocument } from '../doctors/schemas/doctor.schema.js';
-import { Patient, PatientDocument } from '../patients/schemas/patient.schema.js';
+import { Doctor, DoctorDocument } from '../doctores/schemas/doctor.schema.js';
+import { Patient, PatientDocument } from '../pacientes/schemas/patient.schema.js';
 
 @Injectable()
 export class SeedService implements OnModuleInit {

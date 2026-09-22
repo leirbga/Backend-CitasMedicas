@@ -1,8 +1,8 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { DoctorsService } from '../doctors/doctors.service.js';
-import { PatientsService } from '../patients/patients.service.js';
+import { DoctoresService } from '../doctores/doctors.service.js';
+import { PacientesService } from '../pacientes/patients.service.js';
 import { CreateAppointmentDto } from './dto/create-appointment.dto.js';
 import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/appointment.schema.js';
 
@@ -10,8 +10,8 @@ import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/a
 export class AppointmentsService {
   constructor(
     @InjectModel(Appointment.name) private readonly model: Model<AppointmentDocument>,
-    private readonly doctors: DoctorsService,
-    private readonly patients: PatientsService,
+    private readonly doctors: DoctoresService,
+    private readonly patients: PacientesService,
   ) {}
 
   async create(dto: CreateAppointmentDto) {

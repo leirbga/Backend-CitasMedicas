@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateAppointmentDto } from './dto/create-appointment.dto.js';
 import { AppointmentsService } from './appointments.service.js';
 
-@Controller('appointments')
+@Controller('citas')
 export class AppointmentsController {
   constructor(private readonly service: AppointmentsService) {}
   @Post() create(@Body() dto: CreateAppointmentDto) { return this.service.create(dto); }

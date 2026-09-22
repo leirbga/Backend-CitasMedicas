@@ -6,7 +6,7 @@ import { CreateMedicalRecordDto } from './dto/create-medical-record.dto.js';
 import { MedicalRecord, MedicalRecordDocument } from './schemas/medical-record.schema.js';
 
 @Injectable()
-export class MedicalRecordsService {
+export class RegistrosMedicosService {
   constructor(
     @InjectModel(MedicalRecord.name) private readonly records: Model<MedicalRecordDocument>,
     @InjectModel(Appointment.name) private readonly appointments: Model<AppointmentDocument>,

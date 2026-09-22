@@ -7,7 +7,7 @@ import { RejectPaymentDto } from './dto/reject-payment.dto.js';
 import { Payment, PaymentDocument, PaymentStatus } from './schemas/payment.schema.js';
 
 @Injectable()
-export class PaymentsService {
+export class PagosService {
   constructor(
     @InjectModel(Payment.name) private readonly payments: Model<PaymentDocument>,
     @InjectModel(Appointment.name) private readonly appointments: Model<AppointmentDocument>,
