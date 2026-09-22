@@ -5,7 +5,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { DoctoresModule } from './doctores/doctors.module.js';
 import { PacientesModule } from './pacientes/patients.module.js';
-import { CitasModule } from './appointments/appointments.module.js';
+import { CitasModule } from './cita/citas.module.js';
 import { PagosModule } from './pagos/payments.module.js';
 import { RegistrosMedicosModule } from './registros-medicos/medical-records.module.js';
 import { SeedService } from './seed/seed.service.js';

@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { DoctoresService } from '../doctores/doctors.service.js';
 import { PacientesService } from '../pacientes/patients.service.js';
-import { CreateAppointmentDto } from './dto/create-appointment.dto.js';
-import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/appointment.schema.js';
+import { CrearCitaDto } from './dto/crear-cita.dto.js';
+import { Appointment, AppointmentDocument, AppointmentStatus } from './schemas/cita.schema.js';
 
 @Injectable()
 export class CitasService {
@@ -14,7 +14,7 @@ export class CitasService {
     private readonly patients: PacientesService,
   ) {}
 
-  async create(dto: CreateAppointmentDto) {
+  async create(dto: CrearCitaDto) {
     const [doctor, patient] = await Promise.all([this.doctors.findById(dto.doctorId), this.patients.findById(dto.patientId)]);
     if (!doctor) throw new NotFoundException('Médico no encontrado');
     if (!patient) throw new NotFoundException('Paciente no encontrado');
