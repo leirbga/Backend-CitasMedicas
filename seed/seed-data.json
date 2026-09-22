@@ -1,0 +1,10 @@
+{
+  "doctores": [
+    { "name": "Dr. Pérez", "specialty": "Cardiología", "consultationDurationMinutes": 30 },
+    { "name": "Dra. Gómez", "specialty": "Pediatría", "consultationDurationMinutes": 30 }
+  ],
+  "pacientes": [
+    { "name": "Paciente A", "dni": "V-11111111", "phone": "0412-1234567" },
+    { "name": "Paciente B", "dni": "V-22222222", "phone": "0414-7654321" }
+  ]
+}
