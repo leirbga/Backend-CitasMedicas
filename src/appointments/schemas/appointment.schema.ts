@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import type { HydratedDocument } from 'mongoose';
 
 export enum AppointmentStatus { RESERVED = 'RESERVADA', PENDING_PAYMENT = 'PENDIENTE_PAGO', PAID = 'PAGADA', COMPLETED = 'COMPLETADA', CANCELLED = 'CANCELADA' }
 export type AppointmentDocument = HydratedDocument<Appointment>;

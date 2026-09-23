@@ -1,6 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import type { Model } from 'mongoose';
 import { Appointment, AppointmentDocument, AppointmentStatus } from '../appointments/schemas/appointment.schema.js';
 import { CreateMedicalRecordDto } from './dto/create-medical-record.dto.js';
 import { MedicalRecord, MedicalRecordDocument } from './schemas/medical-record.schema.js';

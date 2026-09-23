@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import type { HydratedDocument } from 'mongoose';
 
 export enum PaymentMethod { MOBILE_PAYMENT = 'PAGO_MOVIL', TRANSFER = 'TRANSFERENCIA' }
 export enum PaymentStatus { PENDING = 'PENDIENTE', APPROVED = 'APROBADO', REJECTED = 'RECHAZADO' }

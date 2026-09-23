@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import type { Model } from 'mongoose';
 import { CreatePatientDto } from './dto/create-patient.dto.js';
 import { Patient, PatientDocument } from './schemas/patient.schema.js';
 

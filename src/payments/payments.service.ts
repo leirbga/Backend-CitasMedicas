@@ -1,6 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { ClientSession, Connection, Model, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import type { ClientSession, Connection, Model } from 'mongoose';
 import { Appointment, AppointmentDocument, AppointmentStatus } from '../appointments/schemas/appointment.schema.js';
 import { CreatePaymentDto } from './dto/create-payment.dto.js';
 import { RejectPaymentDto } from './dto/reject-payment.dto.js';
