@@ -11,3 +11,4 @@ export class PaymentsController {
   @Patch(':id/approve') approve(@Param('id') id: string) { return this.service.approve(id); }
   @Patch(':id/reject') reject(@Param('id') id: string, @Body() dto: RejectPaymentDto) { return this.service.reject(id, dto); }
 }
+ 

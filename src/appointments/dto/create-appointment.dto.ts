@@ -6,3 +6,4 @@ export class CreateAppointmentDto {
   @IsISO8601() startAt!: string;
   @IsNumber() @IsPositive() amount!: number;
 }
+ 

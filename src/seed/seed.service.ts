@@ -17,3 +17,4 @@ export class SeedService implements OnModuleInit {
     if ((await this.patients.countDocuments()) === 0) await this.patients.insertMany(seedData.pacientes);
   }
 }
+ 

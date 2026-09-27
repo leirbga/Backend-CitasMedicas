@@ -5,3 +5,4 @@ export class CreatePatientDto {
   @IsString() @IsNotEmpty() dni!: string;
   @IsString() @IsNotEmpty() phone!: string;
 }
+ 

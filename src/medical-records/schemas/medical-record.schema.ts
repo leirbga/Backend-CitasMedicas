@@ -13,3 +13,4 @@ export class MedicalRecord {
   @Prop({ required: true, type: Date }) attendedAt!: Date;
 }
 export const MedicalRecordSchema = SchemaFactory.createForClass(MedicalRecord);
+ 

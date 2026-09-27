@@ -17,3 +17,4 @@ export class PatientsService {
   findAll() { return this.model.find().sort({ name: 1 }).lean(); }
   findById(id: string) { return this.model.findById(id).lean(); }
 }
+ 

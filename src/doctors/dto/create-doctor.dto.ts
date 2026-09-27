@@ -13,3 +13,4 @@ export class CreateDoctorDto {
   @IsPositive()
   consultationDurationMinutes!: number;
 }
+ 

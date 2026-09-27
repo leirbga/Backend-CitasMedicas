@@ -11,3 +11,4 @@ export class Patient {
 }
 
 export const PatientSchema = SchemaFactory.createForClass(Patient);
+ 

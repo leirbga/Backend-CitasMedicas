@@ -7,3 +7,4 @@ export class CreateMedicalRecordDto {
   @IsString() @IsNotEmpty() treatment!: string;
   @IsISO8601() attendedAt!: string;
 }
+ 

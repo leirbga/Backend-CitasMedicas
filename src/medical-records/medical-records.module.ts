@@ -11,3 +11,4 @@ import { MedicalRecordsService } from './medical-records.service.js';
   providers: [MedicalRecordsService],
 })
 export class MedicalRecordsModule {}
+ 

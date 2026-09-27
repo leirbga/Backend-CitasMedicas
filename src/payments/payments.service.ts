@@ -51,3 +51,4 @@ export class PaymentsService {
   approve(id: string) { return this.changeStatus(id, PaymentStatus.APPROVED); }
   reject(id: string, dto: RejectPaymentDto) { return this.changeStatus(id, PaymentStatus.REJECTED, dto.reason); }
 }
+ 

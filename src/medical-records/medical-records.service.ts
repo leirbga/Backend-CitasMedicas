@@ -30,3 +30,4 @@ export class MedicalRecordsService {
   }
   findAll() { return this.records.find().sort({ attendedAt: -1 }).lean(); }
 }
+ 

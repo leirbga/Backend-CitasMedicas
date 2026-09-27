@@ -20,3 +20,4 @@ export class DoctorsService {
     return this.model.findById(id).lean();
   }
 }
+ 

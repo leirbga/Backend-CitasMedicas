@@ -7,3 +7,4 @@ export class CreatePaymentDto {
   @IsString() @IsNotEmpty() bankReference!: string;
   @IsNumber() @IsPositive() amount!: number;
 }
+ 

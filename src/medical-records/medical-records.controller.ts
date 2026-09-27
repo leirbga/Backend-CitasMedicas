@@ -8,3 +8,4 @@ export class MedicalRecordsController {
   @Post() create(@Body() dto: CreateMedicalRecordDto) { return this.service.create(dto); }
   @Get() findAll() { return this.service.findAll(); }
 }
+ 
