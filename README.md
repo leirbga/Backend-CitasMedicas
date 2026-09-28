@@ -24,6 +24,8 @@ Al iniciar, la aplicación carga automáticamente [`seed/seed-data.json`](./seed
 - `PaymentsModule`: pagos agrupados y aprobación/rechazo administrativo.
 - `MedicalRecordsModule`: fichas médicas únicamente para citas pagadas.
 
+Las carpetas de solicitudes y los nombres de solicitudes de Insomnia están en español. Los nombres de carpetas y archivos del código fuente se conservan en inglés.
+
 ## Endpoints
 
 Todos los endpoints reciben y devuelven JSON. La aplicación usa `ValidationPipe` global con `whitelist`, `forbidNonWhitelisted` y validadores de `class-validator`.
@@ -114,7 +116,7 @@ Devuelve `422 Unprocessable Entity` si la cita no está `PAGADA`. En caso exitos
 
 ## Colección de Insomnia
 
-Importa [`insomnia.collection.json`](./insomnia.collection.json) en Insomnia. La colección incluye un entorno con `baseUrl`, `doctorPerezId`, `doctorGomezId`, `patientAId`, `patientBId`, `citaId`, `citaId2`, `citaSinPagarId` y `pagoId`, agrupado por preparación y escenarios. Después de crear cada recurso, copia su `_id` de la respuesta a la variable correspondiente. En el flujo de pago, rechaza el primer reporte, crea el pago corregido y aprueba ese nuevo pago.
+Importa [`coleccion-insomnia.json`](./coleccion-insomnia.json) en Insomnia. La colección incluye un entorno con `baseUrl`, `doctorPerezId`, `doctorGomezId`, `patientAId`, `patientBId`, `citaId`, `citaId2`, `citaSinPagarId` y `pagoId`, agrupado por preparación y escenarios. Después de crear cada recurso, copia su `_id` de la respuesta a la variable correspondiente. En el flujo de pago, rechaza el primer reporte, crea el pago corregido y aprueba ese nuevo pago.
 
 ## Validación
 
