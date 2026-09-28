@@ -1,0 +1,595 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-27T21:00:00.000Z",
+  "__export_source": "insomnia.desktop.app",
+  "resources": [
+    {
+      "_id": "wrk_medical_appointments",
+      "parentId": null,
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "API REST - Medical Appointments",
+      "description": "Insomnia collection for the medical appointment and payment technical challenge.",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_medical_appointments",
+      "parentId": "wrk_medical_appointments",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Base Environment",
+      "data": {
+        "baseUrl": "http://localhost:3000",
+        "doctorPerezId": "",
+        "doctorGomezId": "",
+        "patientAId": "",
+        "patientBId": "",
+        "citaId": "",
+        "citaId2": "",
+        "citaSinPagarId": "",
+        "pagoId": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "baseUrl",
+          "doctorPerezId",
+          "doctorGomezId",
+          "patientAId",
+          "patientBId",
+          "citaId",
+          "citaId2",
+          "citaSinPagarId",
+          "pagoId"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_setup",
+      "parentId": "wrk_medical_appointments",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "0 - Setup and lookup",
+      "description": "List the seeded doctors and patients, then copy their _id values into the environment.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 1,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_doctors",
+      "parentId": "fld_setup",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "List doctors",
+      "description": "Expected: 200. Copy Dr. Perez and Dra. Gomez _id values into doctorPerezId and doctorGomezId.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/doctors",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 1,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_doctor_by_id",
+      "parentId": "fld_setup",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Get doctor by ID",
+      "description": "Expected: 200 when the doctor exists; 404 when it does not.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/doctors/{{ _.doctorPerezId }}",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 2,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_patients",
+      "parentId": "fld_setup",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "List patients",
+      "description": "Expected: 200. Copy Paciente A and Paciente B _id values into patientAId and patientBId.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/patients",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 3,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_availability",
+      "parentId": "wrk_medical_appointments",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "1 - Appointment booking and availability",
+      "description": "Create a reservation, then repeat the same doctor and time to demonstrate HTTP 409.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 2,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_unpaid",
+      "parentId": "fld_availability",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Create reservation for unpaid-record test",
+      "description": "Expected: 201 and status RESERVADA. Save response _id as citaSinPagarId.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"patientId\": \"{{ _.patientAId }}\",\n  \"doctorId\": \"{{ _.doctorPerezId }}\",\n  \"startAt\": \"2026-10-01T10:00:00.000Z\",\n  \"amount\": 40\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 1,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_overlap",
+      "parentId": "fld_availability",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Try booking same doctor and time",
+      "description": "Run after the previous request. Expected: 409 Conflict because the doctor already has an active reservation.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"patientId\": \"{{ _.patientBId }}\",\n  \"doctorId\": \"{{ _.doctorPerezId }}\",\n  \"startAt\": \"2026-10-01T10:00:00.000Z\",\n  \"amount\": 40\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 2,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_bad_appointment",
+      "parentId": "fld_availability",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Invalid appointment payload",
+      "description": "Expected: 400 Bad Request from DTO validation (invalid Mongo ID, ISO date and amount).",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"patientId\": \"not-an-object-id\",\n  \"doctorId\": \"not-an-object-id\",\n  \"startAt\": \"tomorrow morning\",\n  \"amount\": -10\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 3,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_missing_doctor",
+      "parentId": "fld_availability",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Get nonexistent doctor",
+      "description": "Expected: 404 Not Found. The ID is a valid ObjectId format but is not expected to exist in the database.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/doctors/000000000000000000000000",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 4,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_payment",
+      "parentId": "wrk_medical_appointments",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "2 - Multiple appointments and consolidated payment",
+      "description": "Create two reservations, submit a consolidated payment, reject it, report it again, then approve the corrected payment.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 3,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_appointment_a",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Create appointment A - Dr Perez 11:00",
+      "description": "Expected: 201 and status RESERVADA. Save response _id as citaId.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"patientId\": \"{{ _.patientAId }}\",\n  \"doctorId\": \"{{ _.doctorPerezId }}\",\n  \"startAt\": \"2026-10-01T11:00:00.000Z\",\n  \"amount\": 40\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 1,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_appointment_b",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Create appointment B - Dr Gomez 14:00",
+      "description": "Expected: 201 and status RESERVADA. Save response _id as citaId2.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"patientId\": \"{{ _.patientBId }}\",\n  \"doctorId\": \"{{ _.doctorGomezId }}\",\n  \"startAt\": \"2026-10-01T14:00:00.000Z\",\n  \"amount\": 50\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 2,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_payment",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Report consolidated payment",
+      "description": "Expected: 201, payment PENDIENTE and both appointments PENDIENTE_PAGO. Save response _id as pagoId.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/payments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"appointmentIds\": [\"{{ _.citaId }}\", \"{{ _.citaId2 }}\"],\n  \"paymentMethod\": \"TRANSFERENCIA\",\n  \"bankReference\": \"REF-MED-2026\",\n  \"amount\": 90\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 3,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_reject_payment",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Reject payment",
+      "description": "Expected: 200, payment RECHAZADO and linked appointments return to RESERVADA.",
+      "method": "PATCH",
+      "url": "{{ _.baseUrl }}/payments/{{ _.pagoId }}/reject",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"reason\": \"Monto incompleto\"\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 4,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_corrected_payment",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Report corrected payment",
+      "description": "Run after rejection. Expected: 201. Save this new response _id over pagoId before approving.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/payments",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"appointmentIds\": [\"{{ _.citaId }}\", \"{{ _.citaId2 }}\"],\n  \"paymentMethod\": \"TRANSFERENCIA\",\n  \"bankReference\": \"REF-MED-2026-CORREGIDA\",\n  \"amount\": 90\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_approve_payment",
+      "parentId": "fld_payment",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Approve corrected payment",
+      "description": "Use the pagoId of the corrected payment. Expected: 200, payment APROBADO and linked appointments PAGADA.",
+      "method": "PATCH",
+      "url": "{{ _.baseUrl }}/payments/{{ _.pagoId }}/approve",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 6,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_medical_record",
+      "parentId": "wrk_medical_appointments",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "3 - Medical record and completion",
+      "description": "Demonstrate HTTP 422 for an unpaid appointment, then create a record for the paid appointment.",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 4,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_record_unpaid",
+      "parentId": "fld_medical_record",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Try to register record for unpaid appointment",
+      "description": "Use citaSinPagarId from scenario 1. Expected: 422 Unprocessable Entity because the appointment is RESERVADA.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/medical-records",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"appointmentId\": \"{{ _.citaSinPagarId }}\",\n  \"reason\": \"Control\",\n  \"diagnosis\": \"No aplica\",\n  \"treatment\": \"No aplica\",\n  \"attendedAt\": \"2026-10-01T10:30:00.000Z\"\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 1,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_record_paid",
+      "parentId": "fld_medical_record",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "Register medical record for paid appointment",
+      "description": "Run after approving the corrected payment. Expected: 201 and appointment A changes to COMPLETADA.",
+      "method": "POST",
+      "url": "{{ _.baseUrl }}/medical-records",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"appointmentId\": \"{{ _.citaId }}\",\n  \"reason\": \"Dolor torácico\",\n  \"diagnosis\": \"Evaluación cardiológica normal\",\n  \"treatment\": \"Control en 30 días\",\n  \"attendedAt\": \"2026-10-01T11:30:00.000Z\"\n}"
+      },
+      "authentication": {},
+      "metaSortKey": 2,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_appointments",
+      "parentId": "fld_medical_record",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "List appointments and inspect final states",
+      "description": "Expected: 200. Check citaId is COMPLETADA and citaId2 is PAGADA.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/appointments",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 3,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_payments",
+      "parentId": "fld_medical_record",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "List payments",
+      "description": "Expected: 200. Inspect rejected and approved payment records.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/payments",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 4,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_medical_records",
+      "parentId": "fld_medical_record",
+      "modified": 1790542800000,
+      "created": 1790542800000,
+      "name": "List medical records",
+      "description": "Expected: 200.",
+      "method": "GET",
+      "url": "{{ _.baseUrl }}/medical-records",
+      "headers": [],
+      "parameters": [],
+      "body": {},
+      "authentication": {},
+      "metaSortKey": 5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}

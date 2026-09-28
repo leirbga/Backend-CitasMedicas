@@ -96,16 +96,25 @@ Las transiciones de pago y citas se ejecutan dentro de una transacción MongoDB.
 }
 ```
 
-Devuelve `400 Bad Request` si la cita no está `PAGADA`. En caso exitoso crea la ficha y cambia la cita a `COMPLETADA`.
+Devuelve `422 Unprocessable Entity` si la cita no está `PAGADA`. En caso exitoso crea la ficha y cambia la cita a `COMPLETADA`.
 
 | Método | Ruta | Descripción |
 |---|---|---|
 | GET | `/medical-records` | Lista fichas |
 | POST | `/medical-records` | Registra diagnóstico y tratamiento |
 
-## Demostración en Postman
+## Manejo de excepciones HTTP
 
-Importa [`postman/appointments-medicas.postman_collection.json`](./postman/appointments-medicas.postman_collection.json). Copia los IDs obtenidos de `GET /doctors` y `GET /patients` en las variables `doctorPerezId`, `doctorGomezId`, `patientAId` y `patientBId`. Después de cada creación, guarda los IDs de las citas y del pago en las variables indicadas. Ejecuta las carpetas en orden para reproducir los tres escenarios solicitados.
+| Código | Uso |
+|---|---|
+| `400 Bad Request` | DTO o datos de entrada inválidos; también monto incorrecto o pago ya procesado |
+| `404 Not Found` | Médico, cita, pago o paciente inexistente |
+| `409 Conflict` | Horario ocupado, DNI duplicado, referencia bancaria activa duplicada o ficha ya creada |
+| `422 Unprocessable Entity` | La cita existe, pero no está pagada y no se puede registrar atención médica |
+
+## Colección de Insomnia
+
+Importa [`insomnia.collection.json`](./insomnia.collection.json) en Insomnia. La colección incluye un entorno con `baseUrl`, `doctorPerezId`, `doctorGomezId`, `patientAId`, `patientBId`, `citaId`, `citaId2`, `citaSinPagarId` y `pagoId`, agrupado por preparación y escenarios. Después de crear cada recurso, copia su `_id` de la respuesta a la variable correspondiente. En el flujo de pago, rechaza el primer reporte, crea el pago corregido y aprueba ese nuevo pago.
 
 ## Validación
 

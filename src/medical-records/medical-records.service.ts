@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import type { Model } from 'mongoose';
@@ -17,7 +17,7 @@ export class MedicalRecordsService {
     if (!Types.ObjectId.isValid(dto.appointmentId)) throw new NotFoundException('Cita no encontrada');
     const appointment = await this.appointments.findById(dto.appointmentId);
     if (!appointment) throw new NotFoundException('Cita no encontrada');
-    if (appointment.status !== AppointmentStatus.PAID) throw new BadRequestException('La cita debe estar PAGADA para registrar atención médica');
+    if (appointment.status !== AppointmentStatus.PAID) throw new UnprocessableEntityException('La cita debe estar PAGADA para registrar atención médica');
     try {
       const record = await this.records.create({ ...dto, appointmentId: new Types.ObjectId(dto.appointmentId), attendedAt: new Date(dto.attendedAt) });
       appointment.status = AppointmentStatus.COMPLETED;
