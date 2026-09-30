@@ -14,7 +14,16 @@ import { Patient, PatientSchema } from './patients/schemas/patient.schema.js';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/citas-medicas'),
+    MongooseModule.forRoot(process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/citas-medicas', {
+      connectionFactory: (connection) => {
+        connection.on('connected', () => console.info('[mongoose] MongoDB connection established'));
+        connection.on('error', (error: Error) =>
+          console.error('[mongoose] MongoDB connection error', error.message),
+        );
+        connection.on('disconnected', () => console.warn('[mongoose] MongoDB disconnected'));
+        return connection;
+      },
+    }),
     MongooseModule.forFeature([{ name: Doctor.name, schema: DoctorSchema }, { name: Patient.name, schema: PatientSchema }]),
     DoctorsModule,
     PatientsModule,
